@@ -1,7 +1,7 @@
 // 상수 (난이도 파라미터)
 const BASE_SCORE = 100;
-const BONUS_SEC = 2;     // 정답 시 +2초
-const PENALTY_SEC = -3;  // 오답 시 -3초
+const BONUS_SEC = 2; // 정답 시 +2초
+const PENALTY_SEC = -3; // 오답 시 -3초
 
 // DOM 참조
 const elTimeProgress = document.getElementById('time-progress');
@@ -33,7 +33,10 @@ function play(name) {
   if (muted) return;
   const a = sounds[name];
   if (!a) return;
-  try { a.currentTime = 0; a.play(); } catch (_) {}
+  try {
+    a.currentTime = 0;
+    a.play();
+  } catch (_) {}
 }
 
 // 전역 상태
@@ -57,8 +60,12 @@ let correctCount = 0;
 let wrongQuestions = [];
 
 // 유틸
-function clamp(n, min, max) { return Math.max(min, Math.min(max, n)); }
-function rndInt(n) { return Math.floor(Math.random() * n); }
+function clamp(n, min, max) {
+  return Math.max(min, Math.min(max, n));
+}
+function rndInt(n) {
+  return Math.floor(Math.random() * n);
+}
 function shuffle(arr) {
   for (let i = arr.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -73,7 +80,7 @@ async function loadWords() {
   if (!res.ok) throw new Error('단어 데이터를 불러오지 못했습니다');
   const data = await res.json();
   if (!Array.isArray(data)) throw new Error('단어 데이터 형식 오류');
-  words = data.filter(w => w && w.hanzi && w.pinyin && w.korean);
+  words = data.filter((w) => w && w.hanzi && w.pinyin && w.korean);
 }
 
 // HUD 업데이트
@@ -113,15 +120,16 @@ function sampleQuestion() {
   // 최근 출제 회피
   let idx = rndInt(words.length);
   let safeGuard = 0;
-  while (recentQueue.includes(idx) && safeGuard++ < 20) idx = rndInt(words.length);
+  while (recentQueue.includes(idx) && safeGuard++ < 20)
+    idx = rndInt(words.length);
   recentQueue.push(idx);
   if (recentQueue.length > RECENT_WINDOW) recentQueue.shift();
 
   const correct = words[idx];
-  const pool = words.map((w, i) => i).filter(i => i !== idx);
+  const pool = words.map((w, i) => i).filter((i) => i !== idx);
   shuffle(pool);
-  const wrongs = pool.slice(0, 3).map(i => words[i]);
-  const options = shuffle([correct.korean, ...wrongs.map(w => w.korean)]);
+  const wrongs = pool.slice(0, 3).map((i) => words[i]);
+  const options = shuffle([correct.korean, ...wrongs.map((w) => w.korean)]);
   return { correct, options };
 }
 
@@ -137,7 +145,7 @@ function showQuestion(hanzi, pinyin, options, correctKorean) {
     const btn = document.createElement('button');
     btn.className = 'btn choice';
     btn.type = 'button';
-    btn.textContent = `${i + 1}. ${txt}`;
+    btn.textContent = `${txt}`;
     btn.setAttribute('data-value', txt);
     btn.setAttribute('aria-label', `보기 ${i + 1}`);
     btn.addEventListener('click', () => onChoice(txt, correctKorean));
@@ -187,27 +195,33 @@ function toGameOver() {
   // 틀린 문제 렌더링
   if (elWrongList) {
     elWrongList.innerHTML = '';
-    if (wrongQuestions.length === 0) {
-      const li = document.createElement('li');
-      li.textContent = '모든 문제를 맞혔어요! 🎉';
-      elWrongList.appendChild(li);
-    } else {
-      wrongQuestions.forEach(item => {
+    if (wrongQuestions.length > 0) {
+      wrongQuestions.forEach((item) => {
         const li = document.createElement('li');
         const left = document.createElement('div');
         left.className = 'w-left';
-        const hz = document.createElement('div'); hz.className = 'w-hanzi'; hz.textContent = item.hanzi;
-        const py = document.createElement('div'); py.className = 'w-pinyin'; py.textContent = item.pinyin;
-        left.appendChild(hz); left.appendChild(py);
+        const hz = document.createElement('div');
+        hz.className = 'w-hanzi';
+        hz.textContent = item.hanzi;
+        const py = document.createElement('div');
+        py.className = 'w-pinyin';
+        py.textContent = item.pinyin;
+        left.appendChild(hz);
+        left.appendChild(py);
         const right = document.createElement('div');
         right.className = 'w-right';
-        const correct = document.createElement('div'); correct.className = 'w-correct'; correct.textContent = item.correctKorean;
+        const correct = document.createElement('div');
+        correct.className = 'w-correct';
+        correct.textContent = item.correctKorean;
         right.appendChild(correct);
         if (item.chosen && item.chosen !== item.correctKorean) {
-          const chosen = document.createElement('div'); chosen.className = 'w-chosen'; chosen.textContent = item.chosen;
+          const chosen = document.createElement('div');
+          chosen.className = 'w-chosen';
+          chosen.textContent = item.chosen;
           right.appendChild(chosen);
         }
-        li.appendChild(left); li.appendChild(right);
+        li.appendChild(left);
+        li.appendChild(right);
         elWrongList.appendChild(li);
       });
     }
@@ -222,7 +236,7 @@ function onChoice(chosen, correctKorean) {
 
   // 버튼 스타일 피드백
   const buttons = Array.from(elChoices.querySelectorAll('button'));
-  buttons.forEach(b => {
+  buttons.forEach((b) => {
     const v = b.getAttribute('data-value');
     if (v === correctKorean) b.classList.add('choice--correct');
     if (v === chosen && v !== correctKorean) b.classList.add('choice--wrong');
@@ -255,7 +269,7 @@ function onChoice(chosen, correctKorean) {
       hanzi: current.hanzi,
       pinyin: current.pinyin,
       correctKorean: current.korean,
-      chosen
+      chosen,
     });
     toFeedback(false);
   }
@@ -296,7 +310,7 @@ elMute.addEventListener('click', () => {
 
 document.addEventListener('keydown', (e) => {
   if (elChoices.hidden) return;
-  const map = { '1': 0, '2': 1, '3': 2, '4': 3 };
+  const map = { 1: 0, 2: 1, 3: 2, 4: 3 };
   if (e.key in map) {
     const idx = map[e.key];
     const btn = elChoices.querySelectorAll('button')[idx];
@@ -327,5 +341,3 @@ if (elStart) {
   if (overlay) overlay.hidden = false;
   if (elIntro) elIntro.hidden = false;
 })();
-
-
