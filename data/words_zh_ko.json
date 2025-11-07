@@ -1,0 +1,24 @@
+[
+  { "hanzi": "学习", "pinyin": "xuéxí", "korean": "공부하다" },
+  { "hanzi": "休息", "pinyin": "xiūxi", "korean": "쉬다" },
+  { "hanzi": "吃饭", "pinyin": "chīfàn", "korean": "밥을 먹다" },
+  { "hanzi": "喝水", "pinyin": "hēshuǐ", "korean": "물을 마시다" },
+  { "hanzi": "工作", "pinyin": "gōngzuò", "korean": "일하다" },
+  { "hanzi": "睡觉", "pinyin": "shuìjiào", "korean": "잠자다" },
+  { "hanzi": "跑步", "pinyin": "pǎobù", "korean": "달리다" },
+  { "hanzi": "看书", "pinyin": "kànshū", "korean": "책을 읽다" },
+  { "hanzi": "听音乐", "pinyin": "tīng yīnyuè", "korean": "음악을 듣다" },
+  { "hanzi": "买东西", "pinyin": "mǎi dōngxi", "korean": "물건을 사다" },
+  { "hanzi": "说话", "pinyin": "shuōhuà", "korean": "말하다" },
+  { "hanzi": "写字", "pinyin": "xiězì", "korean": "글을 쓰다" },
+  { "hanzi": "见面", "pinyin": "jiànmiàn", "korean": "만나다" },
+  { "hanzi": "上班", "pinyin": "shàngbān", "korean": "출근하다" },
+  { "hanzi": "下班", "pinyin": "xiàbān", "korean": "퇴근하다" },
+  { "hanzi": "打电话", "pinyin": "dǎ diànhuà", "korean": "전화하다" },
+  { "hanzi": "聊天", "pinyin": "liáotiān", "korean": "수다 떨다" },
+  { "hanzi": "上课", "pinyin": "shàngkè", "korean": "수업을 듣다" },
+  { "hanzi": "考试", "pinyin": "kǎoshì", "korean": "시험보다" },
+  { "hanzi": "帮助", "pinyin": "bāngzhù", "korean": "도와주다" }
+]
+
+
